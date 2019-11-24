@@ -15,4 +15,52 @@ Everything about kops
 - Configure Bastion Machine/Jump-Back Machine which allow to SSH into each nodes accordingly.
 
 
--  KOPS_STATE_STORE - 
+## Getting Started with KOPS
+
+### Pre-requisites:
+- AWS account
+- IAM Account with the required permission
+- kubectl (Kubernetes Command tool to manage Workloads)
+- kops
+- AWS CLI tool
+
+
+### Installed the Required tools on MAC-OS
+
+- Brew Installer 
+```
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+```
+*  After installing Brew, we can go ahead and download the other tools by running the below commands.
+
+- Kubernetes CLI
+```
+brew install kubectl 
+```
+
+- Installing AWS CLI 
+https://docs.aws.amazon.com/cli/latest/userguide/install-macos.html
+
+- KOPS CLI
+
+```
+brew install kops
+```
+
+### Creating IAM User with Required Permission
+
+- Login to AWS Console, and create IAM user with the below mentioned permissions along with grab a hold of Access Key ID, Key to authenticate to AWS CLI.
+
+```
+AmazonEC2FullAccess
+AmazonRoute53FullAccess
+AmazonS3FullAccess
+IAMFullAccess
+AmazonVPCFullAccess
+```
+
+
+
+
+
+
