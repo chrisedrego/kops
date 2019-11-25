@@ -59,6 +59,11 @@ IAMFullAccess
 AmazonVPCFullAccess
 ```
 
+### Create a SSH Key
+
+ssh-keygen
+
+
 ### Creating IAM User with AWS CLI
 
 
@@ -96,6 +101,13 @@ dig ns subdomain.example.com
 ## Creating an s3 bucket
 
 aws s3api create-bucket --bucket kubernots --region us-east-1
+
+
+(Optional)
+aws s3api put-bucket-versioning --bucket kubernots --versioning-configuration Status=Enabled
+
+(Optional)
+aws s3api put-bucket-encryption --bucket kubernots --server-side-encryption-configuration ‘{“Rules”:[{“ApplyServerSideEncryptionByDefault”:{“SSEAlgorithm”:”AES256"}}]}’
 
 
 ## Setting up the Cluster.
@@ -136,9 +148,9 @@ export ZONES=${ZONES:-"us-east-1d,us-east-1b,us-east-1c"}
 
 --associate-public-ip                           which means assigning public address to the Nodes (master/nodes). Default is true.
 
---networking 
+--networking                                    Type of the Networking
 
---topology
+--topology                                      Type of topology
 
 --bastion                                       Enable bastion instance group
 
@@ -155,6 +167,7 @@ export ZONES=${ZONES:-"us-east-1d,us-east-1b,us-east-1c"}
 --master-zones                                  Defines the Zones in which the Master needs to run.
 
 --master-tenancy                                Tenancy of the Master node in AWS, can be default or dedicated.
+
 
 
 --node-count int32                              Set the number of nodes
@@ -177,7 +190,7 @@ export ZONES=${ZONES:-"us-east-1d,us-east-1b,us-east-1c"}
 --kubernetes-version                            Kubernetes Version to use
 
 
---zones strings                    Zones in which to run the cluster
+--zones strings                                 Zones in which to run the cluster
 
 
 
@@ -191,5 +204,88 @@ kops create cluster --cloud=aws --zones=us-east-1d --name=useast1.k8s.appychip.v
 
 kops create cluster  --dns-zone $DNS_NAME $NAME
 
-
 kops create cluster --name=kubernetes-cluster.example.com  --state=s3://kops-state-1234 --zones=eu-west-1a --node-count=2
+
+
+Steps:
+
+export NAME=kubernots.deepintent.com
+
+export KOPS_STATE_STORE=s3://kubernots
+
+export REGION=us-east-1
+
+
+aws s3api create-bucket --bucket kubernots --region us-east-1
+
+aws s3api put-bucket-versioning --bucket kubernots --versioning-configuration Status=Enabled
+
+
+Single Availibility Zone
+
+--name=kubernots.deepintent.com
+--state=s3://kubernots
+--zones=us-east-1a
+--networking=calico
+--topology=public
+--cloud=aws
+
+
+--master-count 1
+--master-size t2.medium
+--master-public-name kubernots-master
+--master-zones us-east-1 
+--master-tenancy default
+
+
+--node-size t2.micro
+--node-tenancy default
+
+
+--api-loadbalancer-type public
+--authorization rbac
+
+--dns public
+--dns-zone 
+
+--dry-run -oyaml
+
+
+
+kops create cluster --name=kubernots.deepintent.com --state=s3://kubernots --zones=us-east-1a --networking=calico --topology=public --cloud=aws --master-count=1 --master-size=t2.medium --master-zones=us-east-1a --master-tenancy=default --node-size=t2.micro --node-tenancy=default --node-count=1  --node-volume-size=10 --api-loadbalancer-type=public --authorization=rbac --dns=private --dns-zone=kubernots.deepintent.com   --dry-run -oyaml
+
+
+kops create cluster --name=kubernots.deepintent.local --state=s3://kubernots --zones=us-east-1a --networking=calico --topology=public --cloud=aws --master-count=1 --master-size=t2.medium --master-zones=us-east-1a --master-tenancy=default --node-size=t2.micro --node-tenancy=default --node-count=1  --node-volume-size=10 --api-loadbalancer-type=public --authorization=rbac --dns private
+
+kops create cluster cloud=aws --zones=ap-south-1b --name=apsouth1.hipster.com --dns-zones=apsouth1b.hipster --dns private
+
+
+
+
+kops create cluster --name=kubernots.k8s.local --state=s3://kubernots --zones=us-east-1a --networking=calico --topology=public --cloud=aws --master-count=1 --master-size=t2.medium --master-zones=us-east-1a --master-tenancy=default --master-volume-size=10  --node-size=t2.micro --node-tenancy=default --node-count=1  --node-volume-size=10 --api-loadbalancer-type=public --authorization=rbac --dns private
+
+
+kops create cluster --name=kubernots.k8s.local --state=s3://kubernots --zones=us-east-2a --networking=calico --topology=public --cloud=aws --master-count=1 --master-size=t2.medium --master-zones=us-east-2a --master-tenancy=default --master-volume-size=10  --node-size=t2.micro --node-tenancy=default --node-count=1  --node-volume-size=10 --api-loadbalancer-type=public --authorization=rbac
+
+
+Chriss-MacBook-Pro:.ssh chrisrego$ kops validate cluster --state=s3://kubernots
+Using cluster from kubectl context: kubernots.k8s.local
+
+
+```
+Validating cluster kubernots.k8s.local
+
+INSTANCE GROUPS
+NAME                    ROLE    MACHINETYPE     MIN     MAX     SUBNETS
+master-us-east-2a       Master  t2.medium       1       1       us-east-2a
+nodes                   Node    t2.micro        1       1       us-east-2a
+
+NODE STATUS
+NAME                                            ROLE    READY
+ip-172-20-51-76.us-east-2.compute.internal      node    True
+ip-172-20-51-90.us-east-2.compute.internal      master  True
+
+Your cluster kubernots.k8s.local is ready
+```
+
+

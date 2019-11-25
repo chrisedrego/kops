@@ -1,0 +1,447 @@
+Chriss-MacBook-Pro:~ chrisrego$ kops update cluster --name kubernots.k8s.local --state=s3://kubernots
+I1125 15:20:48.619620    8777 apply_cluster.go:556] Gossip DNS: skipping DNS validation
+W1125 15:20:48.681512    8777 firewall.go:250] Opening etcd port on masters for access from the nodes, for calico.  This is unsafe in untrusted environments.
+I1125 15:20:48.683562    8777 executor.go:103] Tasks: 0 done / 94 total; 45 can run
+I1125 15:20:50.319135    8777 executor.go:103] Tasks: 45 done / 94 total; 24 can run
+I1125 15:20:51.992906    8777 executor.go:103] Tasks: 69 done / 94 total; 21 can run
+I1125 15:20:53.482923    8777 executor.go:103] Tasks: 90 done / 94 total; 3 can run
+W1125 15:20:53.762515    8777 keypair.go:140] Task did not have an address: *awstasks.LoadBalancer {"Name":"api.kubernots.k8s.local","Lifecycle":"Sync","LoadBalancerName":"api-kubernots-k8s-local-991ukl","DNSName":null,"HostedZoneId":null,"Subnets":[{"Name":"us-east-2a.kubernots.k8s.local","ShortName":"us-east-2a","Lifecycle":"Sync","ID":null,"VPC":{"Name":"kubernots.k8s.local","Lifecycle":"Sync","ID":null,"CIDR":"172.20.0.0/16","EnableDNSHostnames":true,"EnableDNSSupport":true,"Shared":false,"Tags":{"KubernetesCluster":"kubernots.k8s.local","Name":"kubernots.k8s.local","kubernetes.io/cluster/kubernots.k8s.local":"owned"}},"AvailabilityZone":"us-east-2a","CIDR":"172.20.32.0/19","Shared":false,"Tags":{"KubernetesCluster":"kubernots.k8s.local","Name":"us-east-2a.kubernots.k8s.local","SubnetType":"Public","kubernetes.io/cluster/kubernots.k8s.local":"owned","kubernetes.io/role/elb":"1"}}],"SecurityGroups":[{"Name":"api-elb.kubernots.k8s.local","Lifecycle":"Sync","ID":null,"Description":"Security group for api ELB","VPC":{"Name":"kubernots.k8s.local","Lifecycle":"Sync","ID":null,"CIDR":"172.20.0.0/16","EnableDNSHostnames":true,"EnableDNSSupport":true,"Shared":false,"Tags":{"KubernetesCluster":"kubernots.k8s.local","Name":"kubernots.k8s.local","kubernetes.io/cluster/kubernots.k8s.local":"owned"}},"RemoveExtraRules":["port=443"],"Shared":null,"Tags":{"KubernetesCluster":"kubernots.k8s.local","Name":"api-elb.kubernots.k8s.local","kubernetes.io/cluster/kubernots.k8s.local":"owned"}}],"Listeners":{"443":{"InstancePort":443,"SSLCertificateID":""}},"Scheme":null,"HealthCheck":{"Target":"SSL:443","HealthyThreshold":2,"UnhealthyThreshold":2,"Interval":10,"Timeout":5},"AccessLog":null,"ConnectionDraining":null,"ConnectionSettings":{"IdleTimeout":300},"CrossZoneLoadBalancing":{"Enabled":false},"SSLCertificateID":"","Tags":{"KubernetesCluster":"kubernots.k8s.local","Name":"api.kubernots.k8s.local","kubernetes.io/cluster/kubernots.k8s.local":"owned"}}
+I1125 15:20:54.763555    8777 executor.go:103] Tasks: 93 done / 94 total; 1 can run
+I1125 15:20:55.106489    8777 executor.go:103] Tasks: 94 done / 94 total; 0 can run
+Will create resources:
+  AutoscalingGroup/master-us-east-2a.masters.kubernots.k8s.local
+  	Granularity         	1Minute
+  	LaunchConfiguration 	name:master-us-east-2a.masters.kubernots.k8s.local
+  	MaxSize             	1
+  	Metrics             	[GroupDesiredCapacity, GroupInServiceInstances, GroupMaxSize, GroupMinSize, GroupPendingInstances, GroupStandbyInstances, GroupTerminatingInstances, GroupTotalInstances]
+  	MinSize             	1
+  	Subnets             	[name:us-east-2a.kubernots.k8s.local]
+  	SuspendProcesses    	[]
+  	Tags                	{k8s.io/cluster-autoscaler/node-template/label/kops.k8s.io/instancegroup: master-us-east-2a, k8s.io/role/master: 1, kops.k8s.io/instancegroup: master-us-east-2a, Name: master-us-east-2a.masters.kubernots.k8s.local, KubernetesCluster: kubernots.k8s.local}
+
+  AutoscalingGroup/nodes.kubernots.k8s.local
+  	Granularity         	1Minute
+  	LaunchConfiguration 	name:nodes.kubernots.k8s.local
+  	MaxSize             	1
+  	Metrics             	[GroupDesiredCapacity, GroupInServiceInstances, GroupMaxSize, GroupMinSize, GroupPendingInstances, GroupStandbyInstances, GroupTerminatingInstances, GroupTotalInstances]
+  	MinSize             	1
+  	Subnets             	[name:us-east-2a.kubernots.k8s.local]
+  	SuspendProcesses    	[]
+  	Tags                	{k8s.io/cluster-autoscaler/node-template/label/kops.k8s.io/instancegroup: nodes, k8s.io/role/node: 1, kops.k8s.io/instancegroup: nodes, Name: nodes.kubernots.k8s.local, KubernetesCluster: kubernots.k8s.local}
+
+  DHCPOptions/kubernots.k8s.local
+  	DomainName          	us-east-2.compute.internal
+  	DomainNameServers   	AmazonProvidedDNS
+  	Shared              	false
+  	Tags                	{Name: kubernots.k8s.local, KubernetesCluster: kubernots.k8s.local, kubernetes.io/cluster/kubernots.k8s.local: owned}
+
+  EBSVolume/a.etcd-events.kubernots.k8s.local
+  	AvailabilityZone    	us-east-2a
+  	Encrypted           	false
+  	SizeGB              	20
+  	Tags                	{k8s.io/etcd/events: a/a, k8s.io/role/master: 1, kubernetes.io/cluster/kubernots.k8s.local: owned, Name: a.etcd-events.kubernots.k8s.local, KubernetesCluster: kubernots.k8s.local}
+  	VolumeType          	gp2
+
+  EBSVolume/a.etcd-main.kubernots.k8s.local
+  	AvailabilityZone    	us-east-2a
+  	Encrypted           	false
+  	SizeGB              	20
+  	Tags                	{k8s.io/role/master: 1, kubernetes.io/cluster/kubernots.k8s.local: owned, Name: a.etcd-main.kubernots.k8s.local, KubernetesCluster: kubernots.k8s.local, k8s.io/etcd/main: a/a}
+  	VolumeType          	gp2
+
+  IAMInstanceProfile/masters.kubernots.k8s.local
+  	Shared              	false
+
+  IAMInstanceProfile/nodes.kubernots.k8s.local
+  	Shared              	false
+
+  IAMInstanceProfileRole/masters.kubernots.k8s.local
+  	InstanceProfile     	name:masters.kubernots.k8s.local id:masters.kubernots.k8s.local
+  	Role                	name:masters.kubernots.k8s.local
+
+  IAMInstanceProfileRole/nodes.kubernots.k8s.local
+  	InstanceProfile     	name:nodes.kubernots.k8s.local id:nodes.kubernots.k8s.local
+  	Role                	name:nodes.kubernots.k8s.local
+
+  IAMRole/masters.kubernots.k8s.local
+  	ExportWithID        	masters
+
+  IAMRole/nodes.kubernots.k8s.local
+  	ExportWithID        	nodes
+
+  IAMRolePolicy/masters.kubernots.k8s.local
+  	Role                	name:masters.kubernots.k8s.local
+
+  IAMRolePolicy/nodes.kubernots.k8s.local
+  	Role                	name:nodes.kubernots.k8s.local
+
+  InternetGateway/kubernots.k8s.local
+  	VPC                 	name:kubernots.k8s.local
+  	Shared              	false
+  	Tags                	{Name: kubernots.k8s.local, KubernetesCluster: kubernots.k8s.local, kubernetes.io/cluster/kubernots.k8s.local: owned}
+
+  Keypair/apiserver-aggregator
+  	Signer              	name:apiserver-aggregator-ca id:cn=apiserver-aggregator-ca
+  	Subject             	cn=aggregator
+  	Type                	client
+  	Format              	v1alpha2
+
+  Keypair/apiserver-aggregator-ca
+  	Subject             	cn=apiserver-aggregator-ca
+  	Type                	ca
+  	Format              	v1alpha2
+
+  Keypair/apiserver-proxy-client
+  	Signer              	name:ca id:cn=kubernetes
+  	Subject             	cn=apiserver-proxy-client
+  	Type                	client
+  	Format              	v1alpha2
+
+  Keypair/ca
+  	Subject             	cn=kubernetes
+  	Type                	ca
+  	Format              	v1alpha2
+
+  Keypair/etcd-clients-ca
+  	Subject             	cn=etcd-clients-ca
+  	Type                	ca
+  	Format              	v1alpha2
+
+  Keypair/etcd-manager-ca-events
+  	Subject             	cn=etcd-manager-ca-events
+  	Type                	ca
+  	Format              	v1alpha2
+
+  Keypair/etcd-manager-ca-main
+  	Subject             	cn=etcd-manager-ca-main
+  	Type                	ca
+  	Format              	v1alpha2
+
+  Keypair/etcd-peers-ca-events
+  	Subject             	cn=etcd-peers-ca-events
+  	Type                	ca
+  	Format              	v1alpha2
+
+  Keypair/etcd-peers-ca-main
+  	Subject             	cn=etcd-peers-ca-main
+  	Type                	ca
+  	Format              	v1alpha2
+
+  Keypair/kops
+  	Signer              	name:ca id:cn=kubernetes
+  	Subject             	o=system:masters,cn=kops
+  	Type                	client
+  	Format              	v1alpha2
+
+  Keypair/kube-controller-manager
+  	Signer              	name:ca id:cn=kubernetes
+  	Subject             	cn=system:kube-controller-manager
+  	Type                	client
+  	Format              	v1alpha2
+
+  Keypair/kube-proxy
+  	Signer              	name:ca id:cn=kubernetes
+  	Subject             	cn=system:kube-proxy
+  	Type                	client
+  	Format              	v1alpha2
+
+  Keypair/kube-scheduler
+  	Signer              	name:ca id:cn=kubernetes
+  	Subject             	cn=system:kube-scheduler
+  	Type                	client
+  	Format              	v1alpha2
+
+  Keypair/kubecfg
+  	Signer              	name:ca id:cn=kubernetes
+  	Subject             	o=system:masters,cn=kubecfg
+  	Type                	client
+  	Format              	v1alpha2
+
+  Keypair/kubelet
+  	Signer              	name:ca id:cn=kubernetes
+  	Subject             	o=system:nodes,cn=kubelet
+  	Type                	client
+  	Format              	v1alpha2
+
+  Keypair/kubelet-api
+  	Signer              	name:ca id:cn=kubernetes
+  	Subject             	cn=kubelet-api
+  	Type                	client
+  	Format              	v1alpha2
+
+  Keypair/master
+  	AlternateNames      	[100.64.0.1, 127.0.0.1, api.internal.kubernots.k8s.local, api.kubernots.k8s.local, kubernetes, kubernetes.default, kubernetes.default.svc, kubernetes.default.svc.cluster.local]
+  	Signer              	name:ca id:cn=kubernetes
+  	Subject             	cn=kubernetes-master
+  	Type                	server
+  	Format              	v1alpha2
+
+  LaunchConfiguration/master-us-east-2a.masters.kubernots.k8s.local
+  	AssociatePublicIP   	true
+  	IAMInstanceProfile  	name:masters.kubernots.k8s.local id:masters.kubernots.k8s.local
+  	ImageID             	kope.io/k8s-1.15-debian-stretch-amd64-hvm-ebs-2019-09-26
+  	InstanceType        	t2.medium
+  	RootVolumeSize      	10
+  	RootVolumeType      	gp2
+  	SSHKey              	name:kubernetes.kubernots.k8s.local-5a:5b:93:5f:3f:ad:d3:45:73:55:dd:97:d6:1b:03:0a id:kubernetes.kubernots.k8s.local-5a:5b:93:5f:3f:ad:d3:45:73:55:dd:97:d6:1b:03:0a
+  	SecurityGroups      	[name:masters.kubernots.k8s.local]
+  	SpotPrice           	
+  	Tenancy             	default
+
+  LaunchConfiguration/nodes.kubernots.k8s.local
+  	AssociatePublicIP   	true
+  	IAMInstanceProfile  	name:nodes.kubernots.k8s.local id:nodes.kubernots.k8s.local
+  	ImageID             	kope.io/k8s-1.15-debian-stretch-amd64-hvm-ebs-2019-09-26
+  	InstanceType        	t2.micro
+  	RootVolumeSize      	10
+  	RootVolumeType      	gp2
+  	SSHKey              	name:kubernetes.kubernots.k8s.local-5a:5b:93:5f:3f:ad:d3:45:73:55:dd:97:d6:1b:03:0a id:kubernetes.kubernots.k8s.local-5a:5b:93:5f:3f:ad:d3:45:73:55:dd:97:d6:1b:03:0a
+  	SecurityGroups      	[name:nodes.kubernots.k8s.local]
+  	SpotPrice           	
+  	Tenancy             	default
+
+  LoadBalancer/api.kubernots.k8s.local
+  	LoadBalancerName    	api-kubernots-k8s-local-991ukl
+  	Subnets             	[name:us-east-2a.kubernots.k8s.local]
+  	SecurityGroups      	[name:api-elb.kubernots.k8s.local]
+  	Listeners           	{443: {"InstancePort":443,"SSLCertificateID":""}}
+  	HealthCheck         	{"Target":"SSL:443","HealthyThreshold":2,"UnhealthyThreshold":2,"Interval":10,"Timeout":5}
+  	ConnectionSettings  	{"IdleTimeout":300}
+  	CrossZoneLoadBalancing	{"Enabled":false}
+  	SSLCertificateID    	
+  	Tags                	{Name: api.kubernots.k8s.local, KubernetesCluster: kubernots.k8s.local, kubernetes.io/cluster/kubernots.k8s.local: owned}
+
+  LoadBalancerAttachment/api-master-us-east-2a
+  	LoadBalancer        	name:api.kubernots.k8s.local id:api.kubernots.k8s.local
+  	AutoscalingGroup    	name:master-us-east-2a.masters.kubernots.k8s.local id:master-us-east-2a.masters.kubernots.k8s.local
+
+  ManagedFile/etcd-cluster-spec-events
+  	Location            	backups/etcd/events/control/etcd-cluster-spec
+
+  ManagedFile/etcd-cluster-spec-main
+  	Location            	backups/etcd/main/control/etcd-cluster-spec
+
+  ManagedFile/kubernots.k8s.local-addons-bootstrap
+  	Location            	addons/bootstrap-channel.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-core.addons.k8s.io
+  	Location            	addons/core.addons.k8s.io/v1.4.0.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-dns-controller.addons.k8s.io-k8s-1.12
+  	Location            	addons/dns-controller.addons.k8s.io/k8s-1.12.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-dns-controller.addons.k8s.io-k8s-1.6
+  	Location            	addons/dns-controller.addons.k8s.io/k8s-1.6.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-dns-controller.addons.k8s.io-pre-k8s-1.6
+  	Location            	addons/dns-controller.addons.k8s.io/pre-k8s-1.6.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-kube-dns.addons.k8s.io-k8s-1.12
+  	Location            	addons/kube-dns.addons.k8s.io/k8s-1.12.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-kube-dns.addons.k8s.io-k8s-1.6
+  	Location            	addons/kube-dns.addons.k8s.io/k8s-1.6.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-kube-dns.addons.k8s.io-pre-k8s-1.6
+  	Location            	addons/kube-dns.addons.k8s.io/pre-k8s-1.6.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-kubelet-api.rbac.addons.k8s.io-k8s-1.9
+  	Location            	addons/kubelet-api.rbac.addons.k8s.io/k8s-1.9.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-limit-range.addons.k8s.io
+  	Location            	addons/limit-range.addons.k8s.io/v1.5.0.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-networking.projectcalico.org-k8s-1.12
+  	Location            	addons/networking.projectcalico.org/k8s-1.12.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-networking.projectcalico.org-k8s-1.7-v3
+  	Location            	addons/networking.projectcalico.org/k8s-1.7-v3.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-rbac.addons.k8s.io-k8s-1.8
+  	Location            	addons/rbac.addons.k8s.io/k8s-1.8.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-storage-aws.addons.k8s.io-v1.15.0
+  	Location            	addons/storage-aws.addons.k8s.io/v1.15.0.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-storage-aws.addons.k8s.io-v1.6.0
+  	Location            	addons/storage-aws.addons.k8s.io/v1.6.0.yaml
+
+  ManagedFile/kubernots.k8s.local-addons-storage-aws.addons.k8s.io-v1.7.0
+  	Location            	addons/storage-aws.addons.k8s.io/v1.7.0.yaml
+
+  ManagedFile/manifests-etcdmanager-events
+  	Location            	manifests/etcd/events.yaml
+
+  ManagedFile/manifests-etcdmanager-main
+  	Location            	manifests/etcd/main.yaml
+
+  Route/0.0.0.0/0
+  	RouteTable          	name:kubernots.k8s.local
+  	CIDR                	0.0.0.0/0
+  	InternetGateway     	name:kubernots.k8s.local
+
+  RouteTable/kubernots.k8s.local
+  	VPC                 	name:kubernots.k8s.local
+  	Shared              	false
+  	Tags                	{kubernetes.io/kops/role: public, Name: kubernots.k8s.local, KubernetesCluster: kubernots.k8s.local, kubernetes.io/cluster/kubernots.k8s.local: owned}
+
+  RouteTableAssociation/us-east-2a.kubernots.k8s.local
+  	RouteTable          	name:kubernots.k8s.local
+  	Subnet              	name:us-east-2a.kubernots.k8s.local
+
+  SSHKey/kubernetes.kubernots.k8s.local-5a:5b:93:5f:3f:ad:d3:45:73:55:dd:97:d6:1b:03:0a
+  	KeyFingerprint      	53:09:da:9a:e4:48:ca:cc:b6:0d:77:a0:96:6c:11:56
+
+  Secret/admin
+
+  Secret/kube
+
+  Secret/kube-proxy
+
+  Secret/kubelet
+
+  Secret/system:controller_manager
+
+  Secret/system:dns
+
+  Secret/system:logging
+
+  Secret/system:monitoring
+
+  Secret/system:scheduler
+
+  SecurityGroup/api-elb.kubernots.k8s.local
+  	Description         	Security group for api ELB
+  	VPC                 	name:kubernots.k8s.local
+  	RemoveExtraRules    	[port=443]
+  	Tags                	{Name: api-elb.kubernots.k8s.local, KubernetesCluster: kubernots.k8s.local, kubernetes.io/cluster/kubernots.k8s.local: owned}
+
+  SecurityGroup/masters.kubernots.k8s.local
+  	Description         	Security group for masters
+  	VPC                 	name:kubernots.k8s.local
+  	RemoveExtraRules    	[port=22, port=443, port=2380, port=2381, port=4001, port=4002, port=4789, port=179]
+  	Tags                	{Name: masters.kubernots.k8s.local, KubernetesCluster: kubernots.k8s.local, kubernetes.io/cluster/kubernots.k8s.local: owned}
+
+  SecurityGroup/nodes.kubernots.k8s.local
+  	Description         	Security group for nodes
+  	VPC                 	name:kubernots.k8s.local
+  	RemoveExtraRules    	[port=22]
+  	Tags                	{KubernetesCluster: kubernots.k8s.local, kubernetes.io/cluster/kubernots.k8s.local: owned, Name: nodes.kubernots.k8s.local}
+
+  SecurityGroupRule/all-master-to-master
+  	SecurityGroup       	name:masters.kubernots.k8s.local
+  	SourceGroup         	name:masters.kubernots.k8s.local
+
+  SecurityGroupRule/all-master-to-node
+  	SecurityGroup       	name:nodes.kubernots.k8s.local
+  	SourceGroup         	name:masters.kubernots.k8s.local
+
+  SecurityGroupRule/all-node-to-node
+  	SecurityGroup       	name:nodes.kubernots.k8s.local
+  	SourceGroup         	name:nodes.kubernots.k8s.local
+
+  SecurityGroupRule/api-elb-egress
+  	SecurityGroup       	name:api-elb.kubernots.k8s.local
+  	CIDR                	0.0.0.0/0
+  	Egress              	true
+
+  SecurityGroupRule/https-api-elb-0.0.0.0/0
+  	SecurityGroup       	name:api-elb.kubernots.k8s.local
+  	CIDR                	0.0.0.0/0
+  	Protocol            	tcp
+  	FromPort            	443
+  	ToPort              	443
+
+  SecurityGroupRule/https-elb-to-master
+  	SecurityGroup       	name:masters.kubernots.k8s.local
+  	Protocol            	tcp
+  	FromPort            	443
+  	ToPort              	443
+  	SourceGroup         	name:api-elb.kubernots.k8s.local
+
+  SecurityGroupRule/icmp-pmtu-api-elb-0.0.0.0/0
+  	SecurityGroup       	name:api-elb.kubernots.k8s.local
+  	CIDR                	0.0.0.0/0
+  	Protocol            	icmp
+  	FromPort            	3
+  	ToPort              	4
+
+  SecurityGroupRule/master-egress
+  	SecurityGroup       	name:masters.kubernots.k8s.local
+  	CIDR                	0.0.0.0/0
+  	Egress              	true
+
+  SecurityGroupRule/node-egress
+  	SecurityGroup       	name:nodes.kubernots.k8s.local
+  	CIDR                	0.0.0.0/0
+  	Egress              	true
+
+  SecurityGroupRule/node-to-master-protocol-ipip
+  	SecurityGroup       	name:masters.kubernots.k8s.local
+  	Protocol            	4
+  	SourceGroup         	name:nodes.kubernots.k8s.local
+
+  SecurityGroupRule/node-to-master-tcp-1-2379
+  	SecurityGroup       	name:masters.kubernots.k8s.local
+  	Protocol            	tcp
+  	FromPort            	1
+  	ToPort              	2379
+  	SourceGroup         	name:nodes.kubernots.k8s.local
+
+  SecurityGroupRule/node-to-master-tcp-2382-4001
+  	SecurityGroup       	name:masters.kubernots.k8s.local
+  	Protocol            	tcp
+  	FromPort            	2382
+  	ToPort              	4001
+  	SourceGroup         	name:nodes.kubernots.k8s.local
+
+  SecurityGroupRule/node-to-master-tcp-4003-65535
+  	SecurityGroup       	name:masters.kubernots.k8s.local
+  	Protocol            	tcp
+  	FromPort            	4003
+  	ToPort              	65535
+  	SourceGroup         	name:nodes.kubernots.k8s.local
+
+  SecurityGroupRule/node-to-master-udp-1-65535
+  	SecurityGroup       	name:masters.kubernots.k8s.local
+  	Protocol            	udp
+  	FromPort            	1
+  	ToPort              	65535
+  	SourceGroup         	name:nodes.kubernots.k8s.local
+
+  SecurityGroupRule/ssh-external-to-master-0.0.0.0/0
+  	SecurityGroup       	name:masters.kubernots.k8s.local
+  	CIDR                	0.0.0.0/0
+  	Protocol            	tcp
+  	FromPort            	22
+  	ToPort              	22
+
+  SecurityGroupRule/ssh-external-to-node-0.0.0.0/0
+  	SecurityGroup       	name:nodes.kubernots.k8s.local
+  	CIDR                	0.0.0.0/0
+  	Protocol            	tcp
+  	FromPort            	22
+  	ToPort              	22
+
+  Subnet/us-east-2a.kubernots.k8s.local
+  	ShortName           	us-east-2a
+  	VPC                 	name:kubernots.k8s.local
+  	AvailabilityZone    	us-east-2a
+  	CIDR                	172.20.32.0/19
+  	Shared              	false
+  	Tags                	{kubernetes.io/role/elb: 1, Name: us-east-2a.kubernots.k8s.local, KubernetesCluster: kubernots.k8s.local, kubernetes.io/cluster/kubernots.k8s.local: owned, SubnetType: Public}
+
+  VPC/kubernots.k8s.local
+  	CIDR                	172.20.0.0/16
+  	EnableDNSHostnames  	true
+  	EnableDNSSupport    	true
+  	Shared              	false
+  	Tags                	{Name: kubernots.k8s.local, KubernetesCluster: kubernots.k8s.local, kubernetes.io/cluster/kubernots.k8s.local: owned}
+
+  VPCDHCPOptionsAssociation/kubernots.k8s.local
+  	VPC                 	name:kubernots.k8s.local
+  	DHCPOptions         	name:kubernots.k8s.local
+
+Must specify --yes to apply changes
+
+

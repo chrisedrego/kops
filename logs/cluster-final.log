@@ -1,0 +1,38 @@
+Must specify --yes to apply changes
+Chriss-MacBook-Pro:~ chrisrego$ kops update cluster --name kubernots.k8s.local --state=s3://kubernots --yes
+I1125 15:21:08.630461    8778 apply_cluster.go:556] Gossip DNS: skipping DNS validation
+W1125 15:21:08.690546    8778 firewall.go:250] Opening etcd port on masters for access from the nodes, for calico.  This is unsafe in untrusted environments.
+I1125 15:21:11.659910    8778 executor.go:103] Tasks: 0 done / 94 total; 45 can run
+I1125 15:21:14.427278    8778 vfs_castore.go:729] Issuing new certificate: "etcd-manager-ca-events"
+I1125 15:21:14.468307    8778 vfs_castore.go:729] Issuing new certificate: "etcd-manager-ca-main"
+I1125 15:21:14.521286    8778 vfs_castore.go:729] Issuing new certificate: "etcd-peers-ca-main"
+I1125 15:21:14.596254    8778 vfs_castore.go:729] Issuing new certificate: "etcd-clients-ca"
+I1125 15:21:14.723724    8778 vfs_castore.go:729] Issuing new certificate: "etcd-peers-ca-events"
+I1125 15:21:14.729095    8778 vfs_castore.go:729] Issuing new certificate: "apiserver-aggregator-ca"
+I1125 15:21:14.779094    8778 vfs_castore.go:729] Issuing new certificate: "ca"
+I1125 15:21:18.110462    8778 executor.go:103] Tasks: 45 done / 94 total; 24 can run
+I1125 15:21:20.604940    8778 vfs_castore.go:729] Issuing new certificate: "kube-scheduler"
+I1125 15:21:20.761347    8778 vfs_castore.go:729] Issuing new certificate: "apiserver-aggregator"
+I1125 15:21:20.766845    8778 vfs_castore.go:729] Issuing new certificate: "kubecfg"
+I1125 15:21:20.787290    8778 vfs_castore.go:729] Issuing new certificate: "apiserver-proxy-client"
+I1125 15:21:20.825311    8778 vfs_castore.go:729] Issuing new certificate: "kops"
+I1125 15:21:20.849639    8778 vfs_castore.go:729] Issuing new certificate: "kubelet-api"
+I1125 15:21:20.867046    8778 vfs_castore.go:729] Issuing new certificate: "kubelet"
+I1125 15:21:20.891299    8778 vfs_castore.go:729] Issuing new certificate: "kube-proxy"
+I1125 15:21:21.070673    8778 vfs_castore.go:729] Issuing new certificate: "kube-controller-manager"
+I1125 15:21:24.481683    8778 executor.go:103] Tasks: 69 done / 94 total; 21 can run
+I1125 15:21:28.375016    8778 executor.go:103] Tasks: 90 done / 94 total; 3 can run
+I1125 15:21:30.843941    8778 vfs_castore.go:729] Issuing new certificate: "master"
+I1125 15:21:32.700294    8778 executor.go:103] Tasks: 93 done / 94 total; 1 can run
+I1125 15:21:33.673856    8778 executor.go:103] Tasks: 94 done / 94 total; 0 can run
+I1125 15:21:33.987988    8778 update_cluster.go:294] Exporting kubecfg for cluster
+kops has set your kubectl context to kubernots.k8s.local
+
+Cluster is starting.  It should be ready in a few minutes.
+
+Suggestions:
+ * validate cluster: kops validate cluster
+ * list nodes: kubectl get nodes --show-labels
+ * ssh to the master: ssh -i ~/.ssh/id_rsa admin@api.kubernots.k8s.local
+ * the admin user is specific to Debian. If not using Debian please use the appropriate user based on your OS.
+ * read about installing addons at: https://github.com/kubernetes/kops/blob/master/docs/addons.md.
