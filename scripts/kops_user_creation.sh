@@ -1,6 +1,6 @@
 #!/bin/sh
 echo "Logging as User"
-#ssaws configure
+#aws configure
 
 echo "Creating kops user" 
 aws iam create-group --group-name kops
